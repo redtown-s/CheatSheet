@@ -12,6 +12,14 @@ https://******-s.github.io/*********_cafe/
 https://*********-s.github.io/*********Sample1/
 ---------------------------------------------------------
 
+・add と　commitを一度に行えて便利
+git commit -am "メッセージ内容" 
+
+・プッシュ
+git push
+git push origin master     //masterの場合
+
+
 1.ローカルリポジトリを作成する
 
 ディレクトリ内までcd
@@ -133,6 +141,8 @@ git checkout master
 vscodeで編集する
 code /C:/*****s/****/****PJ/js_ichiyasa
 
+・プッシュコマンド　以下でもリモートにプッシュ可能
+git push
 
 
 ---
