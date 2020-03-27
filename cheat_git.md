@@ -97,6 +97,21 @@ Repository nameを入力、ディスクリプションを入力
 Public　か　Private　を選択　　※Privateはクレジット決済などあるケース有り
 Create repositoryクリック
 
+注意：
+Create repositoryの際に下にあるチェックボックスした場合
+Initialize this repository with a README
+（このリポジトリをREADMEで初期化します。
+これにより、リポジトリをコンピュータにすぐに複製できます。）
+以下のコマンドが使えなかった（実行時にgitから排除された）
+remote add origin git@github.com: ******-s/js_ichiyasa.git
+
+とりあえすgithubページからクローン用のパスをコピーして、
+以下コマンドで作成したいディレクトリに再度リポジトリを作った（オリジナルのファイルは避難させた）
+再度そのローカルリポジトリ（クローンしたフォルダ）内に手動でファイルをコピー
+その後、add、commit、 
+git pushでリモート上にプッシュすることができた
+
+
 ・githubページ内にヒント明記あるので参考に
 [参考記事：ローカルでgitを使用した後、gitHubに登録する方法](https://qiita.com/koshihikari/items/dcf126fa9c0de2b6fa7e)
 
