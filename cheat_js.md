@@ -221,9 +221,9 @@ practice.innerHTML = '<h1>れんしゅう</h1>';
 ```
 ---
 ### DOM操作：要素へのアクセス
-#### querySelecterメソッド
-document.querySelecter('`.about`');
-document.querySelecter('`CSSセレクタ`');
+#### querySelectorメソッド
+document.querySelector('`.about`');
+document.querySelector('`CSSセレクタ`');
  * HTML文書の先頭から順に探し始めて、`引数に指定したセレクタに最初にマッチ`した要素が取得される。
 
 ```html
@@ -234,7 +234,7 @@ document.querySelecter('`CSSセレクタ`');
 ```
 
 ```javascript
-let element = document.querySelecter('.about h2');
+let element = document.querySelector('.about h2');
 //「.aboutセレクタ」の「h2」要素を取得
 ```
 ---
@@ -263,8 +263,8 @@ for (let i = 0; i < nodeList.length; i++) {
 |メソッド|引数|戻り値|
 | ---- | ---- | ---- |
 |getElementById()|id属性値|Elementオブジェクト|
-|querySelecter()|CSSセレクタ|Elementオブジェクト|
-|querySelecterAll()|CSSセレクタ|NodeListオブジェクト|
+|querySelector()|CSSセレクタ|Elementオブジェクト|
+|querySelectorAll()|CSSセレクタ|NodeListオブジェクト|
 |getElementsByClassName()|クラス属性値|NodeListオブジェクト|
 |getElementsByName()|name属性値|NodeListオブジェクト|
 |getElementsByTagName()|タグ名|NodeListオブジェクト|
@@ -402,14 +402,10 @@ jsのメソッドやCSSプロパティのブラウザごとの対応状況を確
 `element`.addEventListener('`click`', `func`);
 `対象の要素`.addEventListener('`イベントタイプ名`', `実行したい関数名`);
 　※上記funcのように名前のある関数を使う場合は、引数を渡せない
-
+--
  * addEventListenerメソッドで無名関数を指定
-`element`.addEventListener('`click`', `function(*****)`{
-  行いたい処理
-  `);
-`element`.addEventListener('`click`', `無名関数`{
-  行いたい処理
-  `);
+`element`.addEventListener('`click`', `function(*****)` { 行いたい処理 });
+`element`.addEventListener('`click`', `無名関数` { 行いたい処理 });
 　※引数を渡したい場合は無名関数を使い、その中で関数に引数を渡す
 ---
 ### イベントの種類
@@ -464,6 +460,31 @@ document.addEventListener('keydown', function (event) { //eventオブジェク�
   console.log(event.key); //コンソールにキーを表示
 });
  ```
+
+#### Event.target プロパティ
+##### イベントを発生させたオブジェクトへの参照です。 
+theTarget = event.target
+```js
+// リストを作ります
+var ul = document.createElement('ul');
+document.body.appendChild(ul);
+
+var li1 = document.createElement('li');
+var li2 = document.createElement('li');
+ul.appendChild(li1);
+ul.appendChild(li2);
+
+function hide(e){
+  // e.target はクリックされた <li> 要素を参照します
+  // これはコンテキスト内の親 <ul> を参照する e.currentTarget とは異なります
+  e.target.style.visibility = 'hidden';
+}
+
+// リストにリスナーを接続します
+// <li> がクリックされた時に発火します
+ul.addEventListener('click', hide, false);
+```
+
  ---
 #### getAttributeメソッド
 その要素のに任意の**属性値を取得**する
@@ -669,4 +690,223 @@ result.innerHTML = '結果：' + omikuji.getResult() + 'でした！';  //omikuj
   let omikuji ={
     let results = `this`.results;
   } //このthisはomikujiオブジェクトを指す
+
+----
+alt=  タイトルチップ（代替えテキスト）
+#### カスタムデータ属性
+##### データのやりとりに便利
+ ・例えば「写真画像に関連する音楽ファイルの名前」をデータに指定する場合、「カスタムデータ属性」というオリジナル属性を作る。
+・カスタムデータ属性では「`data-xxx`」 という形式で好きな属性名を付けることができ、任意のデータをHTML要素に関連付けてセットすることができる。
+ * setAttribute('`data-bgm`'), 属性値); //カスタムデータ属性のセット
+ * setAttribute('`data-bgm`') //属性値の参照
+---
+
+#### 写真画像を選択させる(フォトギャラリー)
+
+<details><summary>注釈多めサンプルコード</summary><div>
+
+```js
+// オブジェクトを配列でまとめる
+// 呼び出す際にプロパティ名が必要なもの...オブジェクト
+// 必要無いもの...配列
+// でまとめると扱いやすいデータになる
+
+// アルバムデータの作成(写真画像とキャプションまとめたアルバム)
+// src(プロパティ) , msg(キャプション)
+let album = [
+  { src: 'img/1.jpg', msg: '山道の緑が気持ちいい' },
+  { src: 'img/2.jpg', msg: '階段がきつかった' },
+  { src: 'img/3.jpg', msg: '高尾山' },
+  { src: 'img/4.jpg', msg: '帰りはロープウェイでスイスイ' },
+  { src: 'img/5.jpg', msg: '締めのソバ' }
+];
+
+// 最初のデータを表示しておく
+// メインの写真画像を準備する
+let mainImage = document.createElement('img'); //img要素を作成
+mainImage.setAttribute('src', album[0].src); //album[0]から、src属性をセット(src属性に写真画像の場所を指定)
+mainImage.setAttribute('alt', album[0].msg); //album[0]から、alt属性をセット(キャプションの値をセット)
+
+// メインのキャプションを準備する
+let mainMsg = document.createElement('p'); //p要素を新規作成
+mainMsg.innerText = mainImage.alt; //キャプションをセット
+
+// HTMLに反映する
+let mainFlame = document.querySelector('#gallery .main'); //HTML文書の先頭から順に探し始めて、引数に指定したCSSセレクタに最初にマッチした要素を取得
+mainFlame.insertBefore(mainImage, null); //要素を追加
+mainFlame.insertBefore(mainMsg, null);
+
+
+// サム(thumb)ネイル写真画像の表示
+let thumbFlame = document.querySelector('#gallery .thumb'); //CSSセレクタ要素を取得
+for (let i = 0; i < album.length; i++) {
+  let thumbImage = document.createElement('img'); //img要素を作成
+  thumbImage.setAttribute('src', album[i].src); //(#gallery .thumbタグ内に作成したimgタグに)src属性をセット
+  thumbImage.setAttribute('msg', album[i].msg); //msg属性をセット
+  thumbFlame.insertBefore(thumbImage, null); //(thumbImageの最後の要素として)img要素をHTML文書に追加
+}
+
+// サムネイルの親要素であるthumbFlameにクリックイベントを登録する
+// イベントが発生したときにクリックされたのがimg要素かどうか判定する
+thumbFlame.addEventListener('click', function (event) { //イベントオブジェクト。イベントリスナーで指定した関数の第1引数(今回はeventと命名)にイベントオブジェクトが自動で受け渡される
+
+  // src属性がプロパティ値を持っているか（空ではないか）確認
+  //注意：HTML要素がもつすべての属性がjsのオブジェクトにprptyとして提供されているわけではない。srcなど主要なもののみ
+  // プロパティが無いものは、getAttributeやsetAttributeを使って操作する
+  if (event.target.src) { //イベントオブジェクトを使用する場合は、その代入先となる引数※今回は（event）を指定するだけでOK。
+    //  event.target.src はクリックされた(thumbFlame：#gallery .thumbタグ内の) <imgタグ>の<src="xxx"> 要素を参照します
+  }
+});
+```
+</div></details>
+
+
+
+<details><summary>完成系コード</summary><div>
+
+```html
+html
+<!DOCTYPE html>
+<html land="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>インプレス いちばんやさしいJavaScriptの教本</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <div id="gallery">
+      <div class="main">
+        <!-- javascriptの処理 が入る
+         <img src="img/1.jpg" alt="山道の緑が気持ちいい">
+          <p>山道の緑が気持ちいい</p> -->
+
+</div>
+
+      <div class="thumb">
+        <!-- javascriptの処理 が入る
+        <img src="img/1.jpg" alt="ここにテキスト">
+        <img src="img/1.jpg" alt="ここにテキスト">
+        <img src="img/1.jpg" alt="ここにテキスト">
+        <img src="img/1.jpg" alt="ここにテキスト">
+        <img src="img/1.jpg" alt="ここにテキスト"> -->
+      </div>
+    </div>
+
+    <script src="js/app.js"></script>
+  </body>
+</html>
+```
+
+```js
+js
+// オブジェクトを配列でまとめる
+// 呼び出す際にプロパティ名が必要なもの...オブジェクト
+// 必要無いもの...配列
+// でまとめると扱いやすいデータになる
+
+// アルバムデータの作成(写真画像とキャプションまとめたアルバム)
+// src(プロパティ) , msg(キャプション)
+let album = [
+  { src: 'img/1.jpg', msg: '山道の緑が気持ちいい' },
+  { src: 'img/2.jpg', msg: '階段がきつかった' },
+  { src: 'img/3.jpg', msg: '高尾山' },
+  { src: 'img/4.jpg', msg: '帰りはロープウェイでスイスイ' },
+  { src: 'img/5.jpg', msg: '締めのソバ' }
+];
+
+// 最初のデータを表示しておく
+// メインの写真画像を準備する
+let mainImage = document.createElement('img'); //img要素を作成
+mainImage.setAttribute('src', album[0].src); //album[0]から、src属性をセット(src属性に写真画像の場所を指定)
+mainImage.setAttribute('alt', album[0].msg); //album[0]から、alt属性をセット(キャプションの値をセット)
+
+// メインのキャプションを準備する
+let mainMsg = document.createElement('p'); //p要素を新規作成
+mainMsg.innerText = mainImage.alt; //キャプションをセット
+
+// HTMLに反映する
+let mainFlame = document.querySelector('#gallery .main'); //HTML文書の先頭から順に探し始めて、引数に指定したCSSセレクタに最初にマッチした要素を取得
+mainFlame.insertBefore(mainImage, null); //要素を追加
+mainFlame.insertBefore(mainMsg, null);
+
+
+// サム(thumb)ネイル写真画像の表示
+let thumbFlame = document.querySelector('#gallery .thumb'); //CSSセレクタ要素を取得
+for (let i = 0; i < album.length; i++) {
+  let thumbImage = document.createElement('img'); //img要素を作成
+  thumbImage.setAttribute('src', album[i].src); //(#gallery .thumbタグ内に作成したimgタグに)src属性をセット
+  thumbImage.setAttribute('alt', album[i].msg); //msg属性をセット
+  thumbFlame.insertBefore(thumbImage, null); //(thumbImageの最後の要素として)img要素をHTML文書に追加
+}
+
+// サムネイルの親要素であるthumbFlameにクリックイベントを登録する
+// イベントが発生したときにクリックされたのがimg要素かどうか判定する
+thumbFlame.addEventListener('click', function (event) { //イベントリスナーで指定した関数の第1引数eventにイベントオブジェクト
+
+  // src属性がプロパティ値を持っているか（空ではないか）確認
+  if (event.target.src) { //  クリックされたthumbFlame(#gallery>.thumb>imgタグ内>の<src="xxx"> 要素)を参照
+    // 写真画像とキャプションを変更する
+
+    // console.log(event.target.src); //値の確認
+    // console.log(event.target.alt);
+
+    mainImage.src = event.target.src; //mainImageのsrc属性に、クリックされたimg要素(thumbFlame(#gallery>.thumb>imgタグ要素内)のsrc属性値（パス）を代入
+    mainMsg.innerText = event.target.alt; //mainMsgのテキストを、クリックされたimg要素のalt属性値を指定して書き換える
+
+  }
+});
+```
+
+```css
+css
+/* 全体のスタイルを調整 */
+body {
+  background-color: #444444;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+/* 余白調整 */
+/*id名#がgalleryのdin要素に対して */
+#gallery {
+  margin: auto;
+  padding-top: 40px;
+  width: 500px;
+}
+
+/* 写真に枠を付ける */
+/* #gallery .main img */
+.main img {
+  border: 4px solid #fff;
+  box-shadow: 0 0 14px #000;
+  width: 100%;
+}
+
+/* キャプションを目立たせる */
+/* #gallery .main p */
+.main p {
+  color: #bbb;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* 画像を小さく、丸くする */
+.thumb img{
+  border: 4px solid #fff;
+  border-radius:400px;
+  box-shadow: 0 0 10px #000;
+  height:60px;
+  margin: 10px;
+  width: 60px;  
+}
+```
+</div></details>
+
+---
+
+
+
+
+
 
