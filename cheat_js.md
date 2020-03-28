@@ -549,3 +549,124 @@ function foo() {
 }
 foo();
 ```
+---
+### 配列
+```js
+// おみくじの結果データを作成
+results = ['大吉', '吉', '中吉', '小吉','凶'];
+
+// 配列をコンソールに表示
+console.log(results);
+
+// インデックスが0の要素をコンソールに表示
+console.log(results[0]);
+
+// 配列に所属するすべてのデータをfor文ですべて表示
+for (let i = 0; i < results.length; i++) {
+  console.log('index：' + i + 'データ：' + results[i]);
+}
+```
+#### オブジェクトを作成し、データをまとめる
+let `human` = {  //{はオブジェクトの始まり
+  `name`: '`山田一郎`',
+  `age`: `31`,
+  height: 170,
+  weight: 70
+}     //}はオブジェクトの終わり
+  
+let `変数名` = {  //{はオブジェクトの始まり
+  `プロパティ1`: '`データ1`',
+  `プロパティ2`: `データ2`,
+  height: 170,
+  weight: 70
+}     //}はオブジェクトの終わり
+```js
+console.log(human)  //{name: "山田一郎", age: 31, height: 170, weight: 70}
+console.log(human.name)  //山田一郎
+```
+
+#### 独自のメソッドを作る
+独自メソッドを定義したい場合、オブジェクト定義{}の中で、**「メソッド名:」の後に無名関数function(,)を記述**する。
+メソッドのプロパティの一種なので、書き方はプロパティの書き換えと一緒。（P名→M名に、データの部分→無名関数に置き換えればOK）
+
+##### メソッドの定義
+```js
+let 変数名 = {
+  メソッド名1: function (引数1, 引数2... ) {
+    // 実行したい処理
+  },
+  ...
+}
+```
+
+##### メソッドのイメージ
+```js
+let おみくじ = {  //おみくじオブジェクトを定義
+  くじを引く: function () {
+    // くじを引くメソッドの定義として、結果を繰り返す処理を書く
+  }
+}
+// くじを引くメソッドの結果をコンソールに表示
+console.log(おみくじ.くじを引く());  //「くじを引く」メソッドを呼び出す
+```
+おみくじプログラム
+```js
+// おみくじオブジェクトの定義
+// omikuji.results  ...imokujiオブジェクトの、resultsプロパティ。プロパティは後で呼び出せる
+let omikuji = {
+  results: ["大吉", "吉", "中吉", "小吉", "凶"],  //omikujiのオブジェクト1(プロパティ):[データ]
+  getResult: function () {  //omikujiオブジェクトのオブジェクト2(getresultメソッド)」: [データは無名関数]
+    let results = this.results; //無形関数内では、omikuji(this)のプロパティ(オブジェクト1)である[results配列]を呼び出し変数に格納
+
+
+    return results[Math.floor(Math.random() * results.length)];  //results[配列]のインデックスに0-4を入れて処理を返す。
+    // 0-1未満 * 5(配列の長さ)。その計算の数値以下の最大の整数にする(結果は0-4)
+  } //getResultメソッドの処理結果(omikujiオブジェクトのメソッド:が処理したデータ)としてresults[0-4]のインデックス番号となる。
+} //この時点でomikujiオブジェクトは{results配列プロパティ, results[0-4](メソッド処理の戻り値)}のデータを持つオブジェクトを保有している
+
+//呼び出しはc.log(omikuji.getResult());  
+// c.log(omikuji.getResult); ではない
+console.log(omikuji.getResult());  //omikujiのgetResultメソッドを呼び出して結果を表示。getResult()の戻り値はresults[0-4]なので、インデックス番号に割り当てられた、results配列プロパティの: ["大吉", "吉", "中吉", "小吉", "凶"] のデータが表示される
+```
+
+サンプル
+```html
+<body>
+  <h1>おみくじ</h1>
+  <p><input type="button" id="getResult" value="おみくじを引く"></p>
+  <div id="result"></div>
+  <script src="js/app.js"></script>
+</body>
+```
+
+```js
+// おみくじオブジェクトの定義
+let omikuji = {
+  results: ["大吉", "吉", "中吉", "小吉", "凶"],  //omikujiのオブジェクト1(プロパティ):[データ]
+  getResult: function () {  //omikujiオブジェクトのオブジェクト2(getresultメソッド)」: [データは無名関数]
+    let results = this.results; //無形関数内では、omikuji(this)のプロパティ(オブジェクト1)である[results配列]を呼び出し変数に格納
+
+    return results[Math.floor(Math.random() * results.length)];  //results[配列]のインデックスに[0-4]を入れて処理を返す。
+    // 0-1未満 * 5(配列の長さ)。その計算の数値以下の最大の整数にする(結果は0-4)
+  }
+} //{results配列プロパティ, results[0-4]}のオブジェクトを保有
+
+// 要素オブジェクトの取得
+let getResult = document.getElementById('getResult');
+let result = document.getElementById('result');
+
+// イベントの登録
+getResult.addEventListener('click', function () {
+result.innerHTML = '結果：' + omikuji.getResult() + 'でした！';  //omikuji.getResult() 行頭にomikuji(オブジェクト)がないとメソッドを呼び出せない
+});
+```
+---
+#### thisについて
+ * 関数の外部で使う場合
+ console.log(this === window); ...厳密に等しいので結果はtrue
+**関数の定義外で使ったthisはwindowオブジェクト**を指す
+ * **メソッド定義の中で使う場合はオブジェクトを指す**
+  let omikuji ={
+    let results = `this`.results;
+  } //このthisはomikujiオブジェクトを指す
+

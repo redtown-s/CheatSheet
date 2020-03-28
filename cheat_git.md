@@ -12,6 +12,27 @@ https://******-s.github.io/*********_cafe/
 https://*********-s.github.io/*********Sample1/
 ---------------------------------------------------------
 
+
+---
+[Git Bash起動時 の home ディレクトリを指定する](https://gnrr.hatenadiary.org/entry/20110514/1305348616)
+* gitbashのショートカットアイコン上で右クリック
+＞プロパティ
+＞リンク先の--cd-to-homeを削除
+＞作業フォルダを%HOMEDRIVE%%HOMEPATH%からC:/U****/*****/MyAppPJのパスに変更
+ * **初期設定**
+   * リンク先
+"C:\Program Files\Git\git-bash.exe" --cd-to-home
+   * 作業フォルダ
+%HOMEDRIVE%%HOMEPATH%
+
+ * **変更後の設定**
+   * リンク先
+"C:\Program Files\Git\git-bash.exe"
+   * 作業フォルダ
+C:/U****/****/****PJ
+---
+
+
 ・add と　commitを一度に行えて便利
 git commit -am "メッセージ内容" 
 
