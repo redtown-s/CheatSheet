@@ -256,3 +256,24 @@ function hello(){
 ![Qiita](http://cdn.qiita.com/assets/siteid-reverse-6044901aace6435306ebd1fac6b7858c.png "キータ")
 
 ただし、Qiitaでの編集の場合はドラック&ドロップで画像が挿入されるので、画像の挿入を手動で入力する必要はありません。
+
+---
+
+|項目（どう表示したい？）|文法（どう書けば実現できる？）|結果（どう表示される？）|
+|:--------------:|:-------------------:|:--------------:|
+|[見出し](https://qiita.com/Nukioman/items/01cd7ff819bc2e69b652#-%E8%A6%8B%E5%87%BA%E3%81%97)|\#テキスト|大きめの文字|
+|[引用](https://qiita.com/Nukioman/items/01cd7ff819bc2e69b652#-%E5%BC%95%E7%94%A8)|\>テキスト|少し薄めのグレー|
+|[太字](https://qiita.com/Nukioman/items/01cd7ff819bc2e69b652#%EF%B8%8F-%E5%A4%AA%E5%AD%97)|\*\*テキスト**|通常　**太字**|
+|[斜め文字](https://qiita.com/Nukioman/items/01cd7ff819bc2e69b652#%EF%B8%8F-%E3%82%A4%E3%82%BF%E3%83%AA%E3%83%83%E3%82%AF%E4%BD%93%E6%96%9C%E4%BD%93)|\*テキスト*|通常　*イタリック*|
+|[打ち消し線](https://qiita.com/Nukioman/items/01cd7ff819bc2e69b652#%EF%B8%8F-%E6%89%93%E3%81%A1%E6%B6%88%E3%81%97%E7%B7%9A)|\~\~テキスト~\~|~~打ち消し線~~|
+|[インライン表示](https://qiita.com/Nukioman/items/01cd7ff819bc2e69b652#-%E3%82%A4%E3%83%B3%E3%83%A9%E3%82%A4%E3%83%B3%E8%A1%A8%E7%A4%BA)|\`テキスト\`|`インライン表示`|
+|[リスト](https://qiita.com/Nukioman/items/01cd7ff819bc2e69b652#-%E3%83%AA%E3%82%B9%E3%83%88)|\- テキスト|箇条書き|
+|[折りたたみ](https://qiita.com/Nukioman/items/01cd7ff819bc2e69b652#-%E6%8A%98%E3%82%8A%E3%81%9F%E3%81%9F%E3%81%BF)|詳細をご確認下さい|クリックで展開可能|
+|[コード挿入](https://qiita.com/Nukioman/items/01cd7ff819bc2e69b652#-%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AE%E6%8C%BF%E5%85%A5)|\`\`\`<br>\`\`\`|プレーンテキスト|
+|[シンタックスハイライト](https://qiita.com/Nukioman/items/01cd7ff819bc2e69b652#%EF%B8%8F-%E3%82%B7%E3%83%B3%E3%82%BF%E3%83%83%E3%82%AF%E3%82%B9%E3%83%8F%E3%82%A4%E3%83%A9%E3%82%A4%E3%83%88)|　\`\`\`Ruby|色分けされたコード|
+|[水平線](https://qiita.com/Nukioman/items/01cd7ff819bc2e69b652#-%E6%B0%B4%E5%B9%B3%E7%B7%9A)|\***|グレーの水平線|
+|[リンク](https://qiita.com/Nukioman/items/01cd7ff819bc2e69b652#-%E3%83%AA%E3%83%B3%E3%82%AF)|\[テキスト](URL)|[リンク](https://qiita.com/Nukioman/items/01cd7ff819bc2e69b652#-%E3%83%AA%E3%83%B3%E3%82%AF)|
+|[画像埋め込み](https://qiita.com/Nukioman/items/01cd7ff819bc2e69b652#-%E7%94%BB%E5%83%8F%E3%81%AE%E5%9F%8B%E3%82%81%E8%BE%BC%E3%81%BF)|\!\[テキスト](URL)|![画像](http://blog.seesaa.jp/images_g/1/44.gif)|
+|[テーブル（表）](https://qiita.com/Nukioman/items/01cd7ff819bc2e69b652#-%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E8%A8%98%E6%B3%95%E8%A1%A8)|詳細をご覧下さい|この表そのものです|
+|[エスケープ](https://qiita.com/Nukioman/items/01cd7ff819bc2e69b652#-%E3%82%A8%E3%82%B9%E3%82%B1%E3%83%BC%E3%83%97)|\\*テキスト\*|\*イタリック*|
+|[注釈](https://qiita.com/Nukioman/items/01cd7ff819bc2e69b652#-%E6%B3%A8%E9%87%88)|テキスト\[^1]|テキスト[^1]|
