@@ -1,0 +1,46 @@
+# VScode Snippets
+
+## HTML
+### html.json
+
+```json
+//html.json
+
+	// Vue.jsの埋め込みスクリプト
+	// vueダウンロード 開発最新版
+	"https://vue.js.org": {
+    "prefix": "vue.js",
+    "body": [
+      "<script src=\"https://jp.vuejs.org/js/vue.js\"><\/script>",
+    ],
+    "description": "vue.js/org Snippets"
+	},
+
+	// vueダウンロード 本番最新版	
+	"https://vue.min.js.org": {
+    "prefix": "vue.min.js",
+    "body": [
+      "<script src=\"https://jp.vuejs.org/js/vue.min.js\"></script>",
+    ],
+    "description": "vue.min.js/org  Snippets"
+	},
+
+		// CDN vue jsDelivr 開発バージョン最新版	
+		"cdn.vue.js.jsDelivr": {
+			"prefix": "vue.cdn",
+			"body": [
+				"<script src=\"https://cdn.jsdelivr.net/npm/vue/dist/vue.js\"></script>",
+			],
+			"description": "vue.cdn.jsDelivr Snippets"
+		},
+
+		// CDN vue jsDelivr 本番バージョン最新版	
+		"cdn.vue.min.js.jsDelivr": {
+			"prefix": "vue.cdn.min",
+			"body": [
+				"<script src=\"https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js\"></script>",
+			],
+			"description": "vue.cdn.min.jsDelivr Snippets"
+		}
+
+```
