@@ -4,8 +4,7 @@ https://www.tam-tam.co.jp/tipsnote/html_css/post11245.html
 
 カンペ
 https://******-s.github.io/*********/
-
-カフェ
+vカフェ
 https://******-s.github.io/*********_cafe/
 
 いちやさgit
@@ -245,3 +244,75 @@ MacOS... .DS_Store
 git log
 差分付きでコミット履歴を確認する場合
 git log -p   //git diff的な使い方
+
+
+## githubリモートRの削除手順1
+### [レポジトリからディレクトリを削除](https://ramen26.hatenadiary.org/entry/20111215/1323958593)
+下記コマンドでディレクトリごと消せる。
+##### 手順1のコマンド：
+`git rm -r hoge/`　hogeは削除したいディレクトリ名
+
+## githubリモートRの削除手順2
+### [git pushがrejectされたときの対応方法](https://hacknote.jp/archives/15275/)
+手順1コマンド実行後。
+git pull でマージした後、改めてpushしましょう。
+  
+##### 手順2のコマンド：
+`git pull origin master`
+`git push`　→githubのブラウザ上から削除される
+でOK
+
+```
+手順1
+
+レポジトリからディレクトリを削除
+git
+下記コマンドで消せる。
+
+ git rm -r hoge/
+ git rm -r --cached hoge/
+前者だとディレクトリ自体も消えます。
+後者だとディレクトリは残った上で、インデックスからのみ削除されます。
+
+
+上のコマンド叩いて git status すると、deleted 状態になっていることが確認出来ます。
+
+git status
+# On branch master
+# Changes not staged for commit:
+#   (use "git add/rm <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#       deleted:    hoge/foo
+#       deleted:    hoge/bar
+あとはいつも通り commit してあげれば OK。
+
+
+なお、削除したディレクトリを復元はこんな。
+
+git reset
+削除時に --cached つけないとディレクトリ自体が消えてしまうので、復元するにはもう一度 checkout しなおす必要があるような。
+
+
+=============================================================================================
+
+手順2
+
+git push しようとしたら、以下のエラーが表示されました。
+
+To git@github.com:◯◯◯.git
+ ! [rejected]        master -> master (fetch first)
+error: failed to push some refs to 'git@github.com:◯◯◯.git'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+
+これは自分がリモートの変更をpullしてから、pushするまでの間に、他からのpushがあるなどしてリモートが変更されているためです。エラーメッセージが教えてくれているように、ブランチの先端がリモートのより後ろになっています。 ローカルの master ブランチを shared の master とマージしてあげる必要があります。 git pull でマージした後、改めてpushしましょう。
+
+$git pull origin master
+
+```
+
+
