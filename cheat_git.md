@@ -1,6 +1,23 @@
----------------------------------------------------------
-GitHub Pagesでサイトを公開する記事
-https://www.tam-tam.co.jp/tipsnote/html_css/post11245.html
+
+#### ページ公開手順(GitHubPages)
+
+参考記事：[GitHub Pagesでサイトを公開する方法](https://www.tam-tam.co.jp/tipsnote/html_css/post11245.html)
+
+1.リモートリポジトリを作成(同名フォルダで)
+2.gitbashでcd。**リポジトリフォルダを作成したい上層フォルダをカレントにする**
+3.リポジトリフォルダを作成したい上層フォルダの直下に空のリポジトリを作成する→git clone 【GitHubリポジトリのアドレス】
+4.3で作成したリポジトリ（.gitフォルダと並列の階層）にindex.html 等の静的ページを作る
+5..gitフォルダの1つ上の階層でgit add .　、　コミット〜プッシュ　
+5.GitHub上のリポジトリの 
+　Settings → GitHub Pages → Source 
+　のところで、master branch を選択し、その後 Save
+6.https://github.com/redtown-s/*****　で検索し、動作確認
+  
+
+  #### gitHubに登録する手順
+参考記事：[ローカルでgitを使用した後、gitHubに登録する方法](https://qiita.com/koshihikari/items/dcf126fa9c0de2b6fa7e)
+
+
 
 カンペ
 https://******-s.github.io/*********/
@@ -9,8 +26,6 @@ https://******-s.github.io/*********_cafe/
 
 いちやさgit
 https://*********-s.github.io/*********Sample1/
----------------------------------------------------------
-
 
 ---
 [Git Bash起動時 の home ディレクトリを指定する](https://gnrr.hatenadiary.org/entry/20110514/1305348616)
@@ -31,7 +46,14 @@ https://*********-s.github.io/*********Sample1/
 C:/U****/****/****PJ
 ---
 
+#### 直前の commit による変更を表示
+git diff HEAD^ HEAD
+HEAD と HEAD^ の差分を表示するコマンド。
+commit 直後によく実行する。
+#### 参考サイト：[よく使う git diff コマンド](https://qiita.com/hide/items/17b970c485e803cbce08#%E7%9B%B4%E5%89%8D%E3%81%AE-commit-%E3%81%AB%E3%82%88%E3%82%8B%E5%A4%89%E6%9B%B4%E3%82%92%E8%A1%A8%E7%A4%BA)
+  
 
+  
 ・add と　commitを一度に行えて便利
 git commit -am "メッセージ内容" 
 
